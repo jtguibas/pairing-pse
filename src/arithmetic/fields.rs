@@ -1,6 +1,8 @@
 //! This module contains the `Field` abstraction that allows us to write
 //! code that generalizes over a pair of fields.
 use core::mem::size_of;
+use serde::de::DeserializeOwned;
+use serde::{Deserialize, Serialize};
 use static_assertions::const_assert;
 use subtle::{Choice, ConstantTimeEq};
 
@@ -53,7 +55,9 @@ pub trait BaseExt: ff::Field + Ord + ConstantTimeEq {
     }
 }
 
-pub trait FieldExt: ff::PrimeField + BaseExt + Group<Scalar = Self> + From<bool> {
+pub trait FieldExt:
+    ff::PrimeField + BaseExt + Group<Scalar = Self> + From<bool> + Serialize + DeserializeOwned
+{
     /// Inverse of $2$ in the field.
     const TWO_INV: Self;
 

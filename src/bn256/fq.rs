@@ -8,10 +8,11 @@ use core::fmt;
 use core::ops::{Add, Mul, Neg, Sub};
 use ff::PrimeField;
 use rand::RngCore;
+use serde::{Deserialize, Serialize};
 use std::io::{self, Read, Write};
 use subtle::{Choice, ConditionallySelectable, ConstantTimeEq, CtOption};
 
-#[derive(Clone, Copy, Eq)]
+#[derive(Clone, Copy, Eq, Serialize, Deserialize)]
 pub struct Fq(pub(crate) [u64; 4]);
 
 /// Constant representing the modulus
